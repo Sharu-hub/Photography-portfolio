@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Photography Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: #444;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-container button:hover {
+            background-color: #666;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal:target {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Photography Portfolio</h1>
+        <p>AESTHETICS BKL❤️🫦</p>
+        <p>100RS ONE CLIP BEKA TOGO</p ṅ>
+    </header>
+
+    <div class="portfolio-grid">
+        <div class="portfolio-item" onclick="openModal(this)">
+            <img src="C:\Users\Ruthik raj\Pictures\WhatsApp Image 2025-01-28 at 10.50.27_3ae352d6.jpg" alt="Sample Photo">
+            <div class="overlay">Volksagen vento 2.6tdi</div>
+        </div>
+        <div class="portfolio-item" onclick="openModal(this)">
+            <img src="C:\Users\Ruthik raj\Pictures\WhatsApp Image 2025-01-28 at 10.50.27_5b8707cf.jpg" alt="Sample Photo">
+            <div class="overlay">LOML💕😘</div>
+        </div>
+        <div class="portfolio-item" onclick="openModal(this)">
+            <img src="C:\Users\Ruthik raj\Pictures\WhatsApp Image 2025-01-28 at 10.50.27_83a00fbe.jpg"alt=" alt="Sample Photo">
+            <div class="overlay">VIT CHENNAI</div>
+        </div>
+        <div class="portfolio-item" onclick="openModal(this)">
+            <img src="C:\Users\Ruthik raj\Pictures\WhatsApp Image 2025-01-28 at 10.50.27_538d1c0b.jpg"alt="Sample Photo">
+            <div class="overlay">SRM KTR CAMPUS CLOCK TOWER</div>
+        </div>
+        <div class="portfolio-item" onclick="openModal(this)">
+            <img src= "C:\Users\Ruthik raj\Pictures\WhatsApp Image 2025-01-28 at 10.50.27_d79aebce.jpg"alt="Sample Photo">
+            <div class="overlay">VOLKSWAGEN VIRTUS 2.8TDI</div>
+        </div>
+        <div class="portfolio-item" onclick="openModal(this)">
+            <img src="C:\Users\Ruthik raj\Pictures\WhatsApp Image 2025-01-28 at 10.50.27_f79b2d34.jpg"  alt="Sample Photo">
+            <div class="overlay">SHELL DATE</div>
+        </div>  
+        <div class="portfolio-item" onclick="openModal(this)">
+            <img src="C:\Users\Ruthik raj\Pictures\WhatsApp Image 2025-01-28 at 11.50.38_1f671df1.jpg"  alt="Sample Photo">
+            <div class="overlay">Nan maga</div>
+
+    </div>
+
+    <div class="button-container">
+        <button onclick="addPhoto()">Add Photo</button>
+    </div>
+
+    <div id="photo-modal" class="modal" onclick="closeModal()">
+        <img id="modal-image" src="" alt="Zoomed Photo">
+    </div>
+
+    <script>
+        function addPhoto() {
+            const grid = document.querySelector('.portfolio-grid');
+            const newItem = document.createElement('div');
+            newItem.classList.add('portfolio-item');
+
+            newItem.innerHTML = `
+                <img src="https://via.placeholder.com/300" alt="New Photo">
+                <div class="overlay">New Photo</div>
+            `;
+            newItem.setAttribute('onclick', 'openModal(this)');
+
+            grid.appendChild(newItem);
+        }
+
+        function openModal(element) {
+            const imgSrc = element.querySelector('img').src;
+            const modal = document.getElementById('photo-modal');
+            const modalImage = document.getElementById('modal-image');
+            modalImage.src = imgSrc;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('photo-modal');
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
